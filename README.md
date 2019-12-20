@@ -1,6 +1,8 @@
 # CentOS - Base PHP
 
-This image is the parent for a number of downstream images that make use of PHP either as a commandline tool or for php-fpm. Based on CentOS 7 and CentOS 8, this image is meant to be minimal and aims to support the needs of a WordPress site. 
+> This image is the parent for a number of downstream images that make use of PHP either as a commandline tool or for php-fpm. Based on CentOS 7 and CentOS 8, this image is meant to be minimal and aims to support the needs of a WordPress site. 
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/10up/base-php.svg)](https://github.com/10up/base-php/blob/master/LICENSE)
 
 ## Usage
 
