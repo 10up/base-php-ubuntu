@@ -25,6 +25,7 @@ RUN yum install -y \
   php-pecl-gearman \
   php-soap \
   php-zip \
+  php-intl \
   ImageMagick \
   php-pecl-imagick && yum clean all
 
