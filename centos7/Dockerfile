@@ -4,8 +4,11 @@ FROM centos:${CENTOS_VERSION}
 ARG PHP_VERSION=73
 ARG CENTOS_VERSION=7
 
-RUN yum upgrade -y && \
+RUN \
+  yum upgrade -y && \
+  yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-${CENTOS_VERSION}.noarch.rpm &&\
   yum install -y http://rpms.remirepo.net/enterprise/remi-release-${CENTOS_VERSION}.rpm && \
+  yum install -y yum-utils && \
   yum clean all
   
 RUN yum install -y --enablerepo=remi-php${PHP_VERSION} \
