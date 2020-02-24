@@ -21,7 +21,7 @@ stages:
       if [ ${BASE} = "centos7" ]; then
         PHP_VERSION=$(echo $DOCKER_TAG | sed -E 's/([0-9]).([0-9])/\1\2/g')
       fi
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login -u dustinrue -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker build --pull --network host --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_IMAGE:${DOCKER_TAG} --tag $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}  .
     - docker push $CI_REGISTRY_IMAGE:${DOCKER_TAG}
     - docker push $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}
