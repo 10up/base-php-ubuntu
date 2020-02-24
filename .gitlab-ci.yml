@@ -20,7 +20,7 @@ stages:
     - cd ${BASE:?}
     - |
       export DOCKER_TAG=${PHP_VERSION}
-      if [ ${BASE} = "centos7" ];
+      if [ ${BASE} = "centos7" ]; then
         PHP_VERSION=$(echo $DOCKER_TAG | sed -E 's/([0-9]).([0-9])/\1\2/g')
       fi
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
