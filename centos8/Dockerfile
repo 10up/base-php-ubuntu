@@ -4,6 +4,8 @@ FROM centos:${CENTOS_VERSION}
 ARG PHP_VERSION=7.3
 ARG CENTOS_VERSION=8
 
+# seems to be an issue in the base image?
+RUN cd /var/lib; rm -f __db*; rpm --rebuilddb; cp -afv rpmrebuild*/* rpm/
 RUN yum upgrade -y && \
   yum install -y http://rpms.remirepo.net/enterprise/remi-release-${CENTOS_VERSION}.rpm && \
   dnf module install php:remi-${PHP_VERSION} -y && \
