@@ -1,0 +1,64 @@
+---
+variables:
+  CI_REGISTRY_URL: "$CI_REGISTRY/$CI_PROJECT_PATH"
+
+stages:
+  - build
+
+.common:
+  image: docker
+  stage: build
+  services:
+    - docker:dind
+  tags:
+    - kubernetes
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://localhost:2375
+  script:
+    - cd ${BASE:?}
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker build --network host --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_URL:${PHP_VERSION}-latest --tag $CI_REGISTRY_URL:${PHP_VERSION}-${CI_COMMIT_SHORT_SHA}  .
+    - docker push $CI_REGISTRY_URL:${PHP_VERSION}-latest
+    - docker push $CI_REGISTRY_URL:${PHP_VERSION}-${CI_COMMIT_SHORT_SHA}
+  when: on_success
+  only:
+    - master
+
+build_56:
+  variables:
+    PHP_VERSION: '7.2'
+    BASE: 'centos7'
+  extends: .common
+
+build_70:
+  variables:
+    PHP_VERSION: '7.3'
+    BASE: 'centos7'
+  extends: .common
+
+build_71:
+  variables:
+    PHP_VERSION: '7.4'
+    BASE: 'centos7'
+  extends: .common
+
+build_72:
+  variables:
+    PHP_VERSION: '7.2'
+    BASE: 'centos8'
+  extends: .common
+
+build_73:
+  variables:
+    PHP_VERSION: '7.3'
+    BASE: 'centos8'
+  extends: .common
+
+build_74:
+  variables:
+    PHP_VERSION: '7.4'
+    BASE: 'centos8'
+  extends: .common
+
