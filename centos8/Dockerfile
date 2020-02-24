@@ -5,7 +5,7 @@ ARG PHP_VERSION=7.3
 ARG CENTOS_VERSION=8
 
 # seems to be an issue in the base image?
-RUN cd /var/lib; rm -f __db*; rpm --rebuilddb; cp -afv rpmrebuild*/* rpm/
+# RUN cd /var/lib; rm -f __db*; rpm --rebuilddb; cp -afv rpmrebuild*/* rpm/
 RUN \
   yum upgrade -y && \
   yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-${CENTOS_VERSION}.noarch.rpm &&\
