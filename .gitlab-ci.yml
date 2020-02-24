@@ -18,45 +18,50 @@ stages:
     DOCKER_HOST: tcp://localhost:2375
   script:
     - cd ${BASE:?}
+    - |
+      export DOCKER_TAG=${PHP_VERSION}
+      if [ ${BASE} = "centos7" ];
+        PHP_VERSION=$(echo $DOCKER_TAG | sed -E 's/([0-9]).([0-9])/\1\2/g')
+      fi
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker build --network host --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_URL:${PHP_VERSION}-latest --tag $CI_REGISTRY_URL:${PHP_VERSION}-${CI_COMMIT_SHORT_SHA}  .
-    - docker push $CI_REGISTRY_URL:${PHP_VERSION}-latest
-    - docker push $CI_REGISTRY_URL:${PHP_VERSION}-${CI_COMMIT_SHORT_SHA}
+    - docker build --network host --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_URL:${DOCKER_TAG} --tag $CI_REGISTRY_URL:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}  .
+    - docker push $CI_REGISTRY_URL:${DOCKER_TAG}
+    - docker push $CI_REGISTRY_URL:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}
   when: on_success
   only:
     - master
 
-build_56:
+PHP 5.6:
   variables:
-    PHP_VERSION: '7.2'
+    PHP_VERSION: '5.6'
     BASE: 'centos7'
   extends: .common
 
-build_70:
+PHP 7.0:
   variables:
-    PHP_VERSION: '7.3'
+    PHP_VERSION: '7.0'
     BASE: 'centos7'
   extends: .common
 
-build_71:
+PHP 7.1:
   variables:
-    PHP_VERSION: '7.4'
+    PHP_VERSION: '7.1'
     BASE: 'centos7'
   extends: .common
 
-build_72:
+PHP 7.2:
   variables:
     PHP_VERSION: '7.2'
     BASE: 'centos8'
   extends: .common
 
-build_73:
+PHP 7.3:
   variables:
     PHP_VERSION: '7.3'
     BASE: 'centos8'
   extends: .common
 
-build_74:
+PHP 7.4:
   variables:
     PHP_VERSION: '7.4'
     BASE: 'centos8'
