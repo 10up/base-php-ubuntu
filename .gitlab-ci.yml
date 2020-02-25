@@ -8,6 +8,7 @@ stages:
   stage: build
   services:
     - docker:dind
+  retry: 2
   tags:
     - kubernetes
   variables:
