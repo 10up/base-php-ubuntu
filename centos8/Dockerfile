@@ -14,8 +14,6 @@ RUN \
   dnf module install php:remi-${PHP_VERSION} -y && \
   yum clean all
 
-# it's a secret to everybody
-RUN cd /var/lib; rm -f __db*; rpm --rebuilddb; cp -afv rpmrebuild*/* rpm/; rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
 RUN yum install -y \
   php-common \
   php-xmlrpc \

@@ -33,26 +33,26 @@ stages:
     - master
     - hotfix/maybe-fix-cento8 
 
-PHP 5.6:
-  stage: build
-  variables:
-    PHP_VERSION: '5.6'
-    BASE: 'centos7'
-  extends: .common
+#PHP 5.6:
+#  stage: build
+#  variables:
+#    PHP_VERSION: '5.6'
+#    BASE: 'centos7'
+#  extends: .common
 
-PHP 7.0:
-  stage: build
-  variables:
-    PHP_VERSION: '7.0'
-    BASE: 'centos7'
-  extends: .common
+#PHP 7.0:
+#  stage: build
+#  variables:
+#    PHP_VERSION: '7.0'
+#    BASE: 'centos7'
+#  extends: .common
 
-PHP 7.1:
-  stage: build
-  variables:
-    PHP_VERSION: '7.1'
-    BASE: 'centos7'
-  extends: .common
+#PHP 7.1:
+#  stage: build
+#  variables:
+#    PHP_VERSION: '7.1'
+#    BASE: 'centos7'
+#  extends: .common
 
 PHP 7.2:
   stage: build72
