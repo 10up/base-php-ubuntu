@@ -11,7 +11,8 @@ RUN \
   yum install -y yum-utils && \
   yum clean all
   
-RUN yum install -y --enablerepo=remi-php${PHP_VERSION} \
+RUN \
+  yum install -y --enablerepo=remi-php${PHP_VERSION} \
   php-common \
   php-xmlrpc \
   php-pecl-memcached \
@@ -33,7 +34,8 @@ RUN yum install -y --enablerepo=remi-php${PHP_VERSION} \
 
 RUN \
   yum install -y \
-  php-ldap 
+  php-ldap \
+  yum clean all
 
 RUN useradd -u 33 -g 33 www-data
 
