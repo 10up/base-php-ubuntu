@@ -22,7 +22,6 @@ RUN yum install -y \
   php-mysqlnd \
   php-pear \
   php-gd \
-  php-ldap \
   php-mbstring \
   php-cli \
   php-process \
@@ -34,6 +33,10 @@ RUN yum install -y \
   php-zip \
   ImageMagick \
   php-pecl-imagick && yum clean all
+
+RUN \
+  yum install -y \
+  php-ldap
 
 RUN useradd -u 33 -g 33 www-data
 
