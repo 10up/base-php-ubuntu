@@ -43,6 +43,7 @@ PHP 7.0:
   extends: .common
 
 PHP 7.1:
+  stage: build
   variables:
     PHP_VERSION: '7.1'
     BASE: 'centos7'

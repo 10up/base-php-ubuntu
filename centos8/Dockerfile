@@ -14,9 +14,8 @@ RUN \
   dnf module install php:remi-${PHP_VERSION} -y && \
   yum clean all
 
-# it's a secret to everybody
-RUN cd /var/lib; rm -f __db*; rpm --rebuilddb; cp -afv rpmrebuild*/* rpm/; rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
-RUN yum install -y \
+RUN \
+  yum install -y \
   php-common \
   php-xmlrpc \
   php-pecl-memcached \
@@ -24,7 +23,6 @@ RUN yum install -y \
   php-mysqlnd \
   php-pear \
   php-gd \
-  php-ldap \
   php-mbstring \
   php-cli \
   php-process \
@@ -36,6 +34,11 @@ RUN yum install -y \
   php-zip \
   ImageMagick \
   php-pecl-imagick && yum clean all
+
+RUN \
+  yum install -y \
+  php-ldap && \
+  yum clean all
 
 RUN useradd -u 33 -g 33 www-data
 
