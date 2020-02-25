@@ -33,7 +33,7 @@ RUN \
   php-pecl-imagick && yum clean all
 
 RUN \
-  yum install -y \
+  yum install -y --enablerepo=remi-php${PHP_VERSION} \
   php-ldap && \
   yum clean all
 
