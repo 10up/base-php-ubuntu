@@ -34,7 +34,7 @@ RUN \
 
 RUN \
   yum install -y \
-  php-ldap \
+  php-ldap && \
   yum clean all
 
 RUN useradd -u 33 -g 33 www-data
