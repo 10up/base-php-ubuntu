@@ -21,6 +21,7 @@ RUN yum install -y \
   php-mysqlnd \
   php-pear \
   php-gd \
+  php-ldap \
   php-mbstring \
   php-cli \
   php-process \

@@ -19,6 +19,7 @@ RUN yum install -y --enablerepo=remi-php${PHP_VERSION} \
   php-mysqlnd \
   php-pear \
   php-gd \
+  php-ldap \
   php-mbstring \
   php-cli \
   php-process \
