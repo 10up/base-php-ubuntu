@@ -26,17 +26,17 @@ RUN \
   php-mbstring \
   php-cli \
   php-process \
+  php-opcache \
+  php-pecl-redis \
+  php-bcmath \
+  php-pecl-gearman \
+  php-soap \
   php-zip \
   ImageMagick \
   php-pecl-imagick && yum clean all
 
 RUN \
   yum install -y \
-  php-opcache \
-  php-pecl-redis \
-  php-bcmath \
-  php-pecl-gearman \
-  php-soap \
   php-ldap && \
   yum clean all
 
