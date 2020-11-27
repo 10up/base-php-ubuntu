@@ -15,26 +15,47 @@ RUN \
   yum clean all
 
 RUN \
-  yum install -y \
-  php-common \
-  php-xmlrpc \
-  php-pecl-memcached \
-  php-pecl-memcache \
-  php-mysqlnd \
-  php-pear \
-  php-gd \
-  php-mbstring \
-  php-cli \
-  php-process \
-  php-opcache \
-  php-pecl-redis \
-  php-bcmath \
-  php-pecl-gearman \
-  php-soap \
-  php-zip \
-  php-intl \
-  ImageMagick \
-  php-pecl-imagick && yum clean all
+  if [ $PHP_VERSION = 8.0 ]; then \
+    yum install -y \
+    php-common \
+    php-xmlrpc \
+    php-pecl-memcached \
+    php-mysqlnd \
+    php-pear \
+    php-gd \
+    php-mbstring \
+    php-cli \
+    php-process \
+    php-opcache \
+    php-pecl-redis \
+    php-bcmath \
+    php-soap \
+    php-zip \
+    php-intl \
+    ImageMagick \
+    php-pecl-imagick && yum clean all ;\
+  else  \
+    yum install -y \
+    php-common \
+    php-xmlrpc \
+    php-pecl-memcached \
+    php-pecl-memcache \
+    php-mysqlnd \
+    php-pear \
+    php-gd \
+    php-mbstring \
+    php-cli \
+    php-process \
+    php-opcache \
+    php-pecl-gearman \
+    php-pecl-redis \
+    php-bcmath \
+    php-soap \
+    php-zip \
+    php-intl \
+    ImageMagick \
+    php-pecl-imagick && yum clean all ;\
+  fi
 
 RUN \
   yum install -y \
