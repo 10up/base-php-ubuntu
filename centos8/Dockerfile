@@ -20,6 +20,7 @@ RUN \
     php-common \
     php-xmlrpc \
     php-pecl-memcached \
+    php-pecl-memcache \
     php-mysqlnd \
     php-pear \
     php-gd \
