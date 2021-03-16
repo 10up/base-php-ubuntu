@@ -6,7 +6,7 @@
 #   * CI_REGISTRY (optional) - the registry URL (optional). Don't override this for gitlab unless you know what you're doing
 
 variables:
-  BUILDX_VERSION: "v0.4.1"
+  BUILDX_VERSION: "v0.5.1"
 
 stages:
   - build
