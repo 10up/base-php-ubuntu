@@ -1,4 +1,7 @@
 ---
+variables:
+  CI_REGISTRY_URL: "$CI_REGISTRY/$CI_PROJECT_PATH"
+  BUILDX_VERSION: "v0.4.1"
 
 stages:
   - build
@@ -28,8 +31,41 @@ stages:
     - docker push $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}
   when: on_success
   only:
-    - master
+    - trunk
+    - feature/multi-arch
 
+.common-ubuntu:
+  image: docker
+  stage: build
+  services:
+    - docker:19.03-dind
+  retry: 2
+  tags:
+    - kubernetes
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://docker:2375
+  before_script:
+    - apk add curl
+    - mkdir -vp ~/.docker/cli-plugins/ ~/dockercache
+    - curl --silent -L "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
+    - chmod a+x ~/.docker/cli-plugins/docker-buildx
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker buildx create --use
+    - docker buildx inspect --bootstrap
+  script:
+    - |
+      export DOCKER_TAG=${PHP_VERSION}
+    - docker buildx build --no-cache --pull --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_URL:${DOCKER_TAG}-ubuntu --tag $CI_REGISTRY_URL:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}-ubuntu --platform ${PLATFORMS} --push .
+  when: on_success
+  only:
+    refs:
+      - trunk
+      - feature/multi-arch
+
+# centos versions
 PHP 5.6:
   variables:
     PHP_VERSION: '5.6'
@@ -72,3 +108,47 @@ PHP 8.0:
     PHP_VERSION: '8.0'
     BASE: 'centos8'
   extends: .common
+
+# ubuntu versions
+PHP 5.6-ubuntu:
+  variables:
+    PHP_VERSION: '5.6'
+    PLATFORMS: 'linux/amd64,linux/arm64'
+  extends: .common-ubuntu
+
+PHP 7.0-ubuntu:
+  variables:
+    PHP_VERSION: '7.0'
+    PLATFORMS: 'linux/amd64,linux/arm64'
+  extends: .common-ubuntu
+
+PHP 7.1-ubuntu:
+  stage: build
+  variables:
+    PHP_VERSION: '7.1'
+    PLATFORMS: 'linux/amd64,linux/arm64'
+  extends: .common-ubuntu
+
+PHP 7.2-ubuntu:
+  variables:
+    PHP_VERSION: '7.2'
+    PLATFORMS: 'linux/amd64,linux/arm64'
+  extends: .common-ubuntu
+
+PHP 7.3-ubuntu:
+  variables:
+    PHP_VERSION: '7.3'
+    PLATFORMS: 'linux/amd64,linux/arm64'
+  extends: .common-ubuntu
+
+PHP 7.4-ubuntu:
+  variables:
+    PHP_VERSION: '7.4'
+    PLATFORMS: 'linux/amd64,linux/arm64'
+  extends: .common-ubuntu
+
+PHP 8.0-ubuntu:
+  variables:
+    PHP_VERSION: '8.0'
+    PLATFORMS: 'linux/amd64,linux/arm64'
+  extends: .common-ubuntu
