@@ -46,7 +46,7 @@ stages:
     - docker:19.03-dind
   retry: 2
   tags:
-    - kubernetes
+    - buildx
   variables:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
