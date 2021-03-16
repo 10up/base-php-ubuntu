@@ -10,7 +10,7 @@ stages:
   image: docker
   stage: build
   services:
-    - docker:dind
+    - docker:19.03-dind
   retry: 2
   tags:
     - kubernetes
