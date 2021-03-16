@@ -1,6 +1,11 @@
 ---
+# Variables to be set (most optional) in you CI vars
+#   * CI_REGISTRY_IMAGE (required) - the full url for your image name. docker.io/10up/base-php for docker, for example
+#   * CI_REGISTRY_USER (optional) - the user for the registry. Don't override this for gitlab unless you know what you're doing
+#   * CI_REGISTRY_PASSWORD (optional) - the password for the registry. Don't override this for gitlab unless you know what you're doing
+#   * CI_REGISTRY (optional) - the registry URL (optional). Don't override this for gitlab unless you know what you're doing
+
 variables:
-  CI_REGISTRY_URL: "$CI_REGISTRY/$CI_PROJECT_PATH"
   BUILDX_VERSION: "v0.4.1"
 
 stages:
@@ -58,7 +63,7 @@ stages:
   script:
     - |
       export DOCKER_TAG=${PHP_VERSION}
-    - docker buildx build --no-cache --pull --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_URL:${DOCKER_TAG}-ubuntu --tag $CI_REGISTRY_URL:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}-ubuntu --platform ${PLATFORMS} --push .
+    - docker buildx build --no-cache --pull --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_IMAGE:${DOCKER_TAG}-ubuntu --tag $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}-ubuntu --platform ${PLATFORMS} --push .
   when: on_success
   only:
     refs:
@@ -113,42 +118,49 @@ PHP 8.0:
 PHP 5.6-ubuntu:
   variables:
     PHP_VERSION: '5.6'
-    PLATFORMS: 'linux/amd64,linux/arm64'
+    # PLATFORMS: 'linux/amd64,linux/arm64'
+    PLATFORMS: 'linux/amd64'
   extends: .common-ubuntu
 
 PHP 7.0-ubuntu:
   variables:
     PHP_VERSION: '7.0'
-    PLATFORMS: 'linux/amd64,linux/arm64'
+    # PLATFORMS: 'linux/amd64,linux/arm64'
+    PLATFORMS: 'linux/amd64'
   extends: .common-ubuntu
 
 PHP 7.1-ubuntu:
   stage: build
   variables:
     PHP_VERSION: '7.1'
-    PLATFORMS: 'linux/amd64,linux/arm64'
+    # PLATFORMS: 'linux/amd64,linux/arm64'
+    PLATFORMS: 'linux/amd64'
   extends: .common-ubuntu
 
 PHP 7.2-ubuntu:
   variables:
     PHP_VERSION: '7.2'
-    PLATFORMS: 'linux/amd64,linux/arm64'
+    # PLATFORMS: 'linux/amd64,linux/arm64'
+    PLATFORMS: 'linux/amd64'
   extends: .common-ubuntu
 
 PHP 7.3-ubuntu:
   variables:
     PHP_VERSION: '7.3'
-    PLATFORMS: 'linux/amd64,linux/arm64'
+    # PLATFORMS: 'linux/amd64,linux/arm64'
+    PLATFORMS: 'linux/amd64'
   extends: .common-ubuntu
 
 PHP 7.4-ubuntu:
   variables:
     PHP_VERSION: '7.4'
-    PLATFORMS: 'linux/amd64,linux/arm64'
+    # PLATFORMS: 'linux/amd64,linux/arm64'
+    PLATFORMS: 'linux/amd64'
   extends: .common-ubuntu
 
 PHP 8.0-ubuntu:
   variables:
     PHP_VERSION: '8.0'
-    PLATFORMS: 'linux/amd64,linux/arm64'
+    # PLATFORMS: 'linux/amd64,linux/arm64'
+    PLATFORMS: 'linux/amd64'
   extends: .common-ubuntu
