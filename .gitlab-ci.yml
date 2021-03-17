@@ -38,21 +38,23 @@ stages:
     - docker push $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}
   when: on_success
   only:
-    - trunk
-    - feature/multi-arch
+    refs:
+      - trunk
+      - feature/multi-arch
 
 .common-ubuntu:
   image: docker
   stage: build
   services:
-    - docker:19.03-dind
+    - docker:19-dind
   retry: 2
   tags:
     - buildx
   variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-    DOCKER_HOST: tcp://docker:2375
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
   before_script:
     - apk add curl
     - mkdir -vp ~/.docker/cli-plugins/ ~/dockercache
@@ -70,6 +72,7 @@ stages:
   only:
     refs:
       - trunk
+      - feature/multi-arch
 
 # centos versions
 PHP 5.6:
