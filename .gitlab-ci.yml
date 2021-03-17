@@ -20,6 +20,7 @@ stages:
   tags:
     - kubernetes
   script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info && break; sleep 5; i=$(( i + 1 )) ; done
     - cd ${BASE:?}
     - |
       export DOCKER_TAG=${PHP_VERSION}
