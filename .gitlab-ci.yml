@@ -15,14 +15,10 @@ stages:
   image: docker
   stage: build
   services:
-    - docker:19.03-dind
+    - docker:dind
   retry: 2
   tags:
     - kubernetes
-  variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-    DOCKER_HOST: tcp://localhost:2375
   script:
     - cd ${BASE:?}
     - |
@@ -68,7 +64,6 @@ stages:
   only:
     refs:
       - trunk
-      - feature/multi-arch
 
 # centos versions
 PHP 5.6:
