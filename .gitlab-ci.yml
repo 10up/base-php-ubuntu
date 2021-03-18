@@ -52,6 +52,7 @@ stages:
   only:
     refs:
       - trunk
+      - feature/multi-arch
 
 .common-ubuntu:
   image: docker
@@ -85,6 +86,7 @@ stages:
   only:
     refs:
       - trunk
+      - feature/multi-arch
 
 # centos versions
 PHP 5.6:
