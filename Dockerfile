@@ -3,14 +3,16 @@ FROM ubuntu:20.04
 ARG PHP_VERSION=7.3
 
 RUN \
-  apt update && apt dist-upgrade -y && apt install software-properties-common -y && apt clean
+  apt update && \
+  apt dist-upgrade -y && \
+  apt install gnupg -y && \
+  echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" | tee /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list && \
+  apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C && \
+  apt update && \
+  apt clean 
 
 RUN \
-  add-apt-repository ppa:ondrej/php;
-  
-RUN \
   apt install -y \
-  php${PHP_VERSION} \
   php${PHP_VERSION}-xmlrpc \
   php${PHP_VERSION}-memcache \
   php${PHP_VERSION}-memcached \
