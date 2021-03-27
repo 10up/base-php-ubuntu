@@ -14,6 +14,7 @@ RUN \
 
 RUN \
   apt install -y \
+  php${PHP_VERSION}-xml \
   php${PHP_VERSION}-xmlrpc \
   php${PHP_VERSION}-memcache \
   php${PHP_VERSION}-memcached \
