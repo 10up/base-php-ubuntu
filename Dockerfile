@@ -2,13 +2,16 @@ FROM ubuntu:20.04
 
 ARG PHP_VERSION=7.3
 
-SHELL ["/bin/bash"]
+SHELL ["/bin/bash", "-c"]
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN \
-  export DEBIAN_FRONTEND=noninteractive && \
   apt update && \
   apt dist-upgrade -y && \
-  apt install gnupg -y && \
+  apt install gnupg -y
+
+RUN \
   echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" | tee /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list && \
   apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C && \
   apt update && \
