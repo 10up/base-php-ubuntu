@@ -2,6 +2,8 @@ FROM ubuntu:20.04
 
 ARG PHP_VERSION=7.3
 
+SHELL ["/bin/bash"]
+
 RUN \
   export DEBIAN_FRONTEND=noninteractive && \
   apt update && \
