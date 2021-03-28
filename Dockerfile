@@ -9,7 +9,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN \
   apt update && \
   apt dist-upgrade -y && \
-  apt install gnupg -y
+  apt install gnupg -y && \
+  apt clean
 
 RUN \
   echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" | tee /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list && \
