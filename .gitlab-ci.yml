@@ -72,7 +72,7 @@ stages:
     - mkdir -vp ~/.docker/cli-plugins/ ~/dockercache
     - curl --silent -L "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
     - chmod a+x ~/.docker/cli-plugins/docker-buildx
-    - docker run --rm --privileged multiarch/qemu-user-static:arm --reset -p yes --debian
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --debian
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker context create dindbuilder
     - docker context use dindbuilder
