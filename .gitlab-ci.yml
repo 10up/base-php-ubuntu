@@ -72,7 +72,6 @@ stages:
     - mkdir -vp ~/.docker/cli-plugins/ ~/dockercache
     - curl --silent -L "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
     - chmod a+x ~/.docker/cli-plugins/docker-buildx
-    - docker context create k3s
     - docker buildx create --use --name k3s --driver kubernetes --platform linux/amd64 --driver-opt nodeselector=kubernetes.io/arch=amd64 --node k3s-amd64
     - docker buildx create --append  --name k3s --driver kubernetes --platform linux/arm64 --driver-opt nodeselector=kubernetes.io/arch=arm64 --node k3s-arm64
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
