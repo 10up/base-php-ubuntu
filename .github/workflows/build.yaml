@@ -1,4 +1,4 @@
-name: ci
+name: Build Images
 
 on:
   push:
@@ -16,10 +16,12 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=5.6
-          tags: 10up/base-php:5.6
+          tags: 10up/base-php:5.6-ubuntu
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
   php70:
     runs-on: ubuntu-latest
     steps:
@@ -30,10 +32,12 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=7.0
-          tags: 10up/base-php:7.0
+          tags: 10up/base-php:7.0-ubuntu
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
   php71:
     runs-on: ubuntu-latest
     steps:
@@ -44,10 +48,12 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=7.1
-          tags: 10up/base-php:7.2
+          tags: 10up/base-php:7.2-ubuntu
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
   php72:
     runs-on: ubuntu-latest
     steps:
@@ -58,10 +64,12 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=7.2
-          tags: 10up/base-php:7.2
+          tags: 10up/base-php:7.2-ubuntu
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
   php73:
     runs-on: ubuntu-latest
     steps:
@@ -72,10 +80,12 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=7.3
-          tags: 10up/base-php:7.3
+          tags: 10up/base-php:7.3-ubuntu
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
   php74:
     runs-on: ubuntu-latest
     steps:
@@ -86,10 +96,12 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=7.4
-          tags: 10up/base-php:7.4
+          tags: 10up/base-php:7.4-ubuntu
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
   php80:
     runs-on: ubuntu-latest
     steps:
@@ -100,8 +112,10 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=8.0
-          tags: 10up/base-php:8.0
+          tags: 10up/base-php:8.0-ubuntu
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
