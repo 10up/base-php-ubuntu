@@ -6,10 +6,10 @@ on:
       - 'feature/multi-arch'
 
 jobs:
-  Build_Ubuntu_Multi-Arch_Images:
+  Build_PHP:
     strategy:
       matrix:
-        version: [5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0]
+        version: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
     environment:
       name: Build
     runs-on: ubuntu-latest
