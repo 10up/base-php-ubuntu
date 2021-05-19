@@ -32,4 +32,4 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: PHP_VERSION=${{ matrix.version }}
-          tags: 10up/base-php:${{ matrix.version }}-ubuntu
+          tags: ${{ secrets.IMAGE_NAME }}:${{ matrix.version }}-ubuntu
