@@ -63,11 +63,15 @@ jobs:
           build-args: PHP_VERSION=${{ matrix.version }}
           tags: ${{ secrets.IMAGE_NAME }}:${{ matrix.version }}-ubuntu
 
+      - name: Fixup the PHP version so remi understands it
+        run: |
+          echo "REMI_PHP_VERSION=$(echo '${{ matrix.version }}' | sed 's/\.//g')" >> $GITHUB_ENV
+
       - name: Build and push CentOS based Docker images
         uses: docker/build-push-action@v2.4.0
         with:
           push: false
           context: centos7
           platforms: linux/amd64
-          build-args: PHP_VERSION=${{ matrix.version }}
+          build-args: PHP_VERSION=${REMI_PHP_VERSION}
           tags: ${{ secrets.IMAGE_NAME }}:${{ matrix.version }}
