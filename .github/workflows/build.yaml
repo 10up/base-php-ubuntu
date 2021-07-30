@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'trunk'
+      - 'feature/*'
 
 jobs:
   Build_PHP:
