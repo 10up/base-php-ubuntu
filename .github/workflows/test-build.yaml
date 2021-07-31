@@ -3,9 +3,7 @@ name: Build Images
 on:
   push:
     branches:
-      - 'trunk'
-  schedule:
-    - cron: 0 0 * * 0
+      - 'feature/*'
 
 jobs:
   Build_PHP_Ubuntu:
@@ -32,7 +30,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: true
+          push: false
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           build-args: PHP_VERSION=${{ matrix.version }}
           tags: ${{ secrets.IMAGE_NAME }}:${{ matrix.version }}-ubuntu
@@ -66,7 +64,7 @@ jobs:
       - name: Build and push CentOS based Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: true
+          push: false
           context: centos7
           platforms: linux/amd64
           build-args: PHP_VERSION=${{ env.REMI_PHP_VERSION }}
@@ -100,7 +98,7 @@ jobs:
       - name: Build and push CentOS based Docker images
         uses: docker/build-push-action@v2.4.0
         with:
-          push: true
+          push: false
           context: centos8
           platforms: linux/amd64
           build-args: PHP_VERSION=${{ env.REMI_PHP_VERSION }}
